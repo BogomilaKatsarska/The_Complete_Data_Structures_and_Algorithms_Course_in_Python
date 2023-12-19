@@ -139,3 +139,20 @@ def access_elements(array_to_search_in, row_index, column_index):
         print('Incorrect index')
     else:
         print(array_to_search_in[row_index][column_index])
+
+
+def traverse_t_d_array(array):
+    for i in range(len(array)):
+        for j in range(len(array[0])):
+            print(array[i][j])
+
+
+def search_t_d_array(array, value):
+    for i in range(len(array)):
+        for j in range(len(array[0])):
+            if array[i][j] == value:
+                return f'The value is located at index {[i][j]}'
+    return 'The element is not found'
+
+
+new_t_d_array = np.delete(two_d_array, 0, axis=0) # a new array is created in the memory
