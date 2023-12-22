@@ -1,6 +1,34 @@
 '''
-1.Dictionary:
+1. Dictionary:
     - unordered, changeable and indexed collection
+
+2. Operations / Built-in Functions:
+    - IN / NOT IN - works with the keys
+    print(3 in my_dict) -> True/False
+    print(3 in my_dict.values()) -> True/False - works with the values of the dict
+    - LEN () - takes each KVP as a single element
+    - ALL()
+    print(all(my_dict)) - T/F - all keys are T
+    - ANY()
+    - SORTED()
+    print(sorted(my_dict))
+
+3. Dictionary                      vs.          List
+
+    unordered(ordered as of Python 3.7)         ordered
+    access via keys                             access via index
+    collection of KVP                           collection of elements
+    preferred when you have unique K-V          preferred when you have ordered data
+    no duplicate members                        allows duplicate members
+
+
+4. Dictionary Comprehension
+    new_dict = {new_key:new_value for (key, value) in dict.items() if condition}
+
+    import random
+    city_names = ["Paris", "London", "Rome", "Berlin", "Madrid"]
+    city_temps = {city: random.randint(10, 20) for city in city_names}
+    above_25 = {city: temp for (city, temp) in city_temps.items() if temp > 25}
 '''
 
 my_dict = { #O(n)
@@ -58,3 +86,13 @@ print(newest_dict.get('name', 'Milica'))
 print(newest_dict.items())
 
 #keys()
+print(newest_dict.keys())
+
+#popitem() - removes and returns an arbitrary item from the dict
+print(newest_dict.popitem())
+
+#setdefault() returns the value of the key if the key is in the dict, else, inserts the key in the dict
+
+#values() - returns list which contains values
+
+#update()
