@@ -14,4 +14,3 @@ class Solution(object):
 
         return head
 
-    
