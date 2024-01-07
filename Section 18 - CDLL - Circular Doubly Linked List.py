@@ -58,3 +58,85 @@ class CircularDoublyLinkedList:
                 new_node.next.prev = new_node
                 temp_node.next = new_node
             return 'The node has been successfully inserted'
+
+    def traverse(self):
+        if self.head is None:
+            return "The CDLL does not exist"
+        else:
+            temp_node = self.head
+            while temp_node:
+                print(temp_node.value)
+                if temp_node == self.tail:
+                    break
+                temp_node = temp_node.next
+
+    def reverse_traverse(self):
+        if self.head is None:
+            return "The CDLL does not exist"
+        else:
+            temp_node = self.tail
+            while temp_node:
+                print(temp_node.value)
+                if temp_node == self.head:
+                    break
+                temp_node = temp_node.prev
+
+    def search(self, node_value):
+        if self.head is None:
+            return "There is not any node in CDLL"
+        else:
+            temp_node = self.head
+            while temp_node:
+                if temp_node.value == node_value:
+                    return temp_node.value
+                if temp_node == self.tail:
+                    return "The value does not exist in CDLL"
+                temp_node = temp_node.next
+
+    def delete_node(self, location):
+        if self.head is None:
+            print("There is not any node to delete")
+        else:
+            if location == 0:
+                if self.head == self.tail:
+                    self.head.prev = None
+                    self.head.next = None
+                    self.head = None
+                    self.tail = None
+                else:
+                    self.head = self.head.next
+                    self.head.prev = self.tail
+                    self.tail.next = self.head
+            elif location == 1:
+                if self.head == self.tail:
+                    self.head.prev = None
+                    self.head.next = None
+                    self.head = None
+                    self.tail = None
+                else:
+                    self.tail = self.tail.prev
+                    self.tail.next = self.head
+                    self.head.prev = self.tail
+            else:
+                current_node = self.head
+                index = 0
+                while index < location -1:
+                    current_node = current_node.next
+                    index += 1
+                current_node.next = current_node.next.next
+                current_node.next.prev = current_node
+            print("The node has been successfully delete")
+
+    def delete_cdll(self):
+        if self.head is None:
+            print('There is not any element to delete.')
+        else:
+            self.tail.next = None
+            temp_node = self.head
+            while temp_node:
+                temp_node.prev = None
+                temp_node = temp_node.next
+            self.head = None
+            self.tail = None
+            print('The CDLL has been successfully deleted.')
+
