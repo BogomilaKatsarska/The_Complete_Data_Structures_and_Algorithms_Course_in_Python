@@ -17,6 +17,7 @@
     - Non-Decreasing order: if a successive element is greater than or equal to its previous element in
         a sequence(1, 3, 5, 5, 5, 7, 9, 11)
 
+
 '''
 import math
 
@@ -134,3 +135,115 @@ def bucket_sort_negative(customList):
         sorted_array.extend(buckets[i])
 
     return sorted_array
+
+# Merge Sort
+#     - Merger sort is a divide and conquer algorithm
+#     - Divide the input array in two halves and we keep halving recursively until they become too small that
+#         cannot be broken further
+#     - Merge halves by sorting them
+# When TO/NOT TO use?
+#     - TO: when you need stable sort
+#     - TO: when average expected time is O(NlogN)
+#
+#     - NOT TO: when space is concern
+
+#MERGE SORT
+def merge(custom_list, l, m, r):
+    n1 = m - l + 1
+    n2 = r - m
+
+    L = [0] * (n1)
+    R = [0] * (n2)
+
+    for i in range(0, n1):
+        L[i] = custom_list[l+i]
+
+    for j in range(0, n2):
+        R[j] = custom_list[m+1+j]
+
+    i = 0
+    j = 0
+    k = l
+    while i < n1 and j < n2:
+        if L[i] <= R[j]:
+            custom_list[k] = L[i]
+        else:
+            custom_list[k] = R[j]
+        k += 1
+    while i < n2:
+        custom_list[k] = R[j]
+        j += 1
+        k += 1
+
+
+def merge_sort(custom_list, l, r):
+    if l < r:
+        m = (l + (r-1)) // 2
+        merge_sort(custom_list, l, m)
+        merge_sort(custom_list, m+1, r)
+        merge(custom_list, l, m, r)
+    return custom_list
+
+
+
+#PIVOT + QUICK SORT
+def swap(my_list, index1, index2):
+    # temp = my_list[index1]
+    # my_list[index1] = my_list[index2]
+    # my_list[index2] = temp
+    my_list[index1], my_list[index2] = my_list[index2], my_list[index1]
+
+
+def pivot(my_list, pivot_index, end_index):
+    swap_index = pivot_index
+    for i in range(pivot_index+1, end_index+1):
+        if my_list[i] < my_list[pivot_index]:
+            swap_index += 1
+            swap(my_list, swap_index, i)
+    swap(my_list, pivot_index, swap_index)
+    return swap_index
+
+
+def quick_sort_helper(my_list, left_index, right_index):
+    if left_index < right_index:
+        pivot_index = pivot(my_list, left_index, right_index)
+        quick_sort_helper(my_list, left_index, pivot_index-1)
+        quick_sort_helper(my_list, pivot_index+1, right_index)
+    return my_list
+
+
+def quick_sort(my_list):
+    return quick_sort_helper(my_list, 0, len(my_list)-1)
+
+'''
+Heap Sort:
+    - Insert Data into Binary Heap Tree
+    - Extract Data from Binary Heap Tree
+    - It is best suited with array, it does not work with linked list
+'''
+
+
+def heapify(custom_list, n, i):
+    smallest = i
+    l = 2*i + 1
+    r = 2*i + 2
+    if l < n and custom_list[l] < custom_list[smallest]:
+        smallest = l
+
+    if r < n and custom_list[r] < custom_list[smallest]:
+        smallest = r
+
+    if smallest != i:
+        custom_list[i], custom_list[smallest] = custom_list[smallest], custom_list[i]
+        heapify(custom_list, n, smallest)
+
+
+def heap_sort(custom_list):
+    n = len(custom_list)
+    for i in range(int(n/2)-1, -1, -1):
+        heapify(custom_list, n, i)
+
+    for i in range(n-1, 0, -1):
+        custom_list[i], custom_list[0] = custom_list[0], custom_list[i]
+        heapify(custom_list, i, 0)
+    custom_list.reversed()
